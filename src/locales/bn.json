@@ -1,0 +1,57 @@
+{
+  "home": {
+    "marquee": {
+      "title": "শিরোনাম"
+    },
+    "navbar": {
+      "searchPlaceholder": "খবরটি সার্চ করুন...",
+      "login": "লগইন"
+    },
+    "navbarLinks": {
+      "items": {
+        "home": "হোমপেজ",
+        "history": "ইতিহাস",
+        "research": "গবেষণা",
+        "countryNature": "দেশ ও প্রাকৃতিক",
+        "sports": "খেলাধুলা",
+        "artCulture": "শিল্প ও সংস্কৃতি",
+        "economy": "অর্থনীতি",
+        "specialArticles": "বিশেষ লেখা",
+        "healthcare": "স্বাস্থ্যসেবা",
+        "socialPolicy": "সমাজনীতি",
+        "islamic": "ইসলামিক"
+      },
+      "dropdowns": {
+        "countryNature": {
+          "politicsDiplomacy": "রাজনীতি ও কূটনীতিক",
+          "agriculturePolicy": "কৃষিনীতি",
+          "foreignEmployment": "বিদেশ কর্মসংস্থান"
+        },
+        "artCulture": {
+          "literature": "সাহিত্য",
+          "cinema": "চলচ্চিত্র",
+          "music": "সঙ্গীত"
+        },
+        "specialArticles": {
+          "columns": "কলাম",
+          "featureArticles": "বিশেষ নিবন্ধ"
+        },
+        "healthcare": {
+          "nutrition": "পুষ্টি",
+          "diseasePrevention": "রোগ প্রতিরোধ"
+        },
+        "socialPolicy": {
+          "education": "শিক্ষা",
+          "socialIssues": "সামাজিক সমস্যা"
+        }
+      }
+    },
+    "heroSection": {
+      "editorial": "সম্পাদকীয়",
+      "editorialDesk": "সম্পাদকীয় ডেস্ক",
+      "timeAgo": "২ ঘন্টা আগে",
+      "heroTitle": "বিনিয়োগ উৎসাহিত করতে দেশে সুষ্ঠু গণতান্ত্রিক পরিবেশ সৃষ্টি করুন",
+      "readMore": "বিস্তারিত পড়ুন"
+    }
+  }
+}

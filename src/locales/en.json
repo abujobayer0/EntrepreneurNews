@@ -1,0 +1,57 @@
+{
+  "home": {
+    "marquee": {
+      "title": "Title"
+    },
+    "navbar": {
+      "searchPlaceholder": "Search the news...",
+      "login": "Login"
+    },
+    "navbarLinks": {
+      "items": {
+        "home": "Homepage",
+        "history": "History",
+        "research": "Research",
+        "countryNature": "Country & Nature",
+        "sports": "Sports",
+        "artCulture": "Art & Culture",
+        "economy": "Economy",
+        "specialArticles": "Special Articles",
+        "healthcare": "Healthcare",
+        "socialPolicy": "Social Policy",
+        "islamic": "Islamic"
+      },
+      "dropdowns": {
+        "countryNature": {
+          "politicsDiplomacy": "Politics & Diplomacy",
+          "agriculturePolicy": "Agriculture Policy",
+          "foreignEmployment": "Foreign Employment"
+        },
+        "artCulture": {
+          "literature": "Literature",
+          "cinema": "Cinema",
+          "music": "Music"
+        },
+        "specialArticles": {
+          "columns": "Columns",
+          "featureArticles": "Feature Articles"
+        },
+        "healthcare": {
+          "nutrition": "Nutrition",
+          "diseasePrevention": "Disease Prevention"
+        },
+        "socialPolicy": {
+          "education": "Education",
+          "socialIssues": "Social Issues"
+        }
+      }
+    },
+    "heroSection": {
+      "editorial": "Editorial",
+      "editorialDesk": "Editorial Desk",
+      "timeAgo": "2 hours ago",
+      "heroTitle": "Create a conducive democratic environment in the country to encourage investment",
+      "readMore": "Read more"
+    }
+  }
+}

@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import Image from "next/image";
-import { X } from "lucide-react";
-import NavbarLinks from "./NavBarLinks";
+import React, { useEffect } from 'react';
+import Image from 'next/image';
+import { X } from 'lucide-react';
+import NavbarLinks from './NavBarLinks';
+import EntrepreneurLogo from '@/assets/images/entrepreneur-logo.png';
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -11,12 +12,12 @@ interface MobileDrawerProps {
 export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
 
@@ -32,7 +33,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
       <div className="fixed inset-y-0 left-0 w-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out">
         <div className="flex pt-6 px-4 flex-row justify-between items-center w-full bg-white pb-4 border-b border-gray-100">
           <Image
-            src="@/assets/images/entrepreneur-logo.png"
+            src={EntrepreneurLogo}
             alt="Entrepreneur Logo"
             width={120}
             height={40}

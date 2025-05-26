@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { useTranslation } from "react-i18next";
-import { ChevronDown } from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import { ChevronDown } from 'lucide-react';
 
 interface DropdownItem {
   id: number;
@@ -32,128 +32,128 @@ export default function NavbarLinks() {
     };
 
     checkIfMobile();
-    window.addEventListener("resize", checkIfMobile);
+    window.addEventListener('resize', checkIfMobile);
 
     return () => {
-      window.removeEventListener("resize", checkIfMobile);
+      window.removeEventListener('resize', checkIfMobile);
     };
   }, []);
 
   const navItems: NavItem[] = [
-    { id: 1, title: t("home.navbarLinks.items.home"), link: "/" },
-    { id: 2, title: t("home.navbarLinks.items.history"), link: "/history" },
-    { id: 3, title: t("home.navbarLinks.items.research"), link: "/research" },
+    { id: 1, title: t('home.navbarLinks.items.home'), link: '/' },
+    { id: 2, title: t('home.navbarLinks.items.history'), link: '/history' },
+    { id: 3, title: t('home.navbarLinks.items.research'), link: '/research' },
     {
       id: 4,
-      title: t("home.navbarLinks.items.countryNature"),
-      link: "#",
+      title: t('home.navbarLinks.items.countryNature'),
+      link: '#',
       hasDropdown: true,
       dropdownItems: [
         {
           id: 41,
           title: t(
-            "home.navbarLinks.dropdowns.countryNature.politicsDiplomacy"
+            'home.navbarLinks.dropdowns.countryNature.politicsDiplomacy'
           ),
-          link: "/politics-diplomacy",
+          link: '/politics-diplomacy',
         },
         {
           id: 42,
           title: t(
-            "home.navbarLinks.dropdowns.countryNature.agriculturePolicy"
+            'home.navbarLinks.dropdowns.countryNature.agriculturePolicy'
           ),
-          link: "/agriculture-policy",
+          link: '/agriculture-policy',
         },
         {
           id: 43,
           title: t(
-            "home.navbarLinks.dropdowns.countryNature.foreignEmployment"
+            'home.navbarLinks.dropdowns.countryNature.foreignEmployment'
           ),
-          link: "/foreign-employment",
+          link: '/foreign-employment',
         },
       ],
     },
-    { id: 5, title: t("home.navbarLinks.items.sports"), link: "/sports" },
+    { id: 5, title: t('home.navbarLinks.items.sports'), link: '/sports' },
     {
       id: 6,
-      title: t("home.navbarLinks.items.artCulture"),
-      link: "#",
+      title: t('home.navbarLinks.items.artCulture'),
+      link: '#',
       hasDropdown: true,
       dropdownItems: [
         {
           id: 61,
-          title: t("home.navbarLinks.dropdowns.artCulture.literature"),
-          link: "/literature",
+          title: t('home.navbarLinks.dropdowns.artCulture.literature'),
+          link: '/literature',
         },
         {
           id: 62,
-          title: t("home.navbarLinks.dropdowns.artCulture.cinema"),
-          link: "/cinema",
+          title: t('home.navbarLinks.dropdowns.artCulture.cinema'),
+          link: '/cinema',
         },
         {
           id: 63,
-          title: t("home.navbarLinks.dropdowns.artCulture.music"),
-          link: "/music",
+          title: t('home.navbarLinks.dropdowns.artCulture.music'),
+          link: '/music',
         },
       ],
     },
-    { id: 7, title: t("home.navbarLinks.items.economy"), link: "/economy" },
+    { id: 7, title: t('home.navbarLinks.items.economy'), link: '/economy' },
     {
       id: 8,
-      title: t("home.navbarLinks.items.specialArticles"),
-      link: "#",
+      title: t('home.navbarLinks.items.specialArticles'),
+      link: '#',
       hasDropdown: true,
       dropdownItems: [
         {
           id: 81,
-          title: t("home.navbarLinks.dropdowns.specialArticles.columns"),
-          link: "/columns",
+          title: t('home.navbarLinks.dropdowns.specialArticles.columns'),
+          link: '/columns',
         },
         {
           id: 82,
           title: t(
-            "home.navbarLinks.dropdowns.specialArticles.featureArticles"
+            'home.navbarLinks.dropdowns.specialArticles.featureArticles'
           ),
-          link: "/special-articles",
+          link: '/special-articles',
         },
       ],
     },
     {
       id: 9,
-      title: t("home.navbarLinks.items.healthcare"),
-      link: "#",
+      title: t('home.navbarLinks.items.healthcare'),
+      link: '#',
       hasDropdown: true,
       dropdownItems: [
         {
           id: 91,
-          title: t("home.navbarLinks.dropdowns.healthcare.nutrition"),
-          link: "/nutrition",
+          title: t('home.navbarLinks.dropdowns.healthcare.nutrition'),
+          link: '/nutrition',
         },
         {
           id: 92,
-          title: t("home.navbarLinks.dropdowns.healthcare.diseasePrevention"),
-          link: "/disease-prevention",
+          title: t('home.navbarLinks.dropdowns.healthcare.diseasePrevention'),
+          link: '/disease-prevention',
         },
       ],
     },
     {
       id: 10,
-      title: t("home.navbarLinks.items.socialPolicy"),
-      link: "#",
+      title: t('home.navbarLinks.items.socialPolicy'),
+      link: '#',
       hasDropdown: true,
       dropdownItems: [
         {
           id: 101,
-          title: t("home.navbarLinks.dropdowns.socialPolicy.education"),
-          link: "/education",
+          title: t('home.navbarLinks.dropdowns.socialPolicy.education'),
+          link: '/education',
         },
         {
           id: 102,
-          title: t("home.navbarLinks.dropdowns.socialPolicy.socialIssues"),
-          link: "/social-issues",
+          title: t('home.navbarLinks.dropdowns.socialPolicy.socialIssues'),
+          link: '/social-issues',
         },
       ],
     },
-    { id: 11, title: t("home.navbarLinks.items.islamic"), link: "/islamic" },
+    { id: 11, title: t('home.navbarLinks.items.islamic'), link: '/islamic' },
   ];
 
   const handleHoverIn = (id: number) => {

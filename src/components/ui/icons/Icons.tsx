@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const FacebookIcon = () => (
   <svg
@@ -27,15 +27,15 @@ export const SignInIcon = () => (
     <path
       d="M8.33325 2.5L7.78112 2.69487C5.63214 3.45333 4.55765 3.83257 3.94545 4.69785C3.33325 5.56313 3.33325 6.70258 3.33325 8.9815V11.0185C3.33325 13.2974 3.33325 14.4368 3.94545 15.3022C4.55765 16.1674 5.63214 16.5467 7.78112 17.3052L8.33325 17.5"
       stroke="white"
-      stroke-width="1.25"
-      stroke-linecap="round"
+      strokeWidth="1.25"
+      strokeLinecap="round"
     />
     <path
       d="M8.33325 9.99996H16.6666M8.33325 9.99996C8.33325 9.41646 9.99517 8.32623 10.4166 7.91663M8.33325 9.99996C8.33325 10.5835 9.99517 11.6737 10.4166 12.0833"
       stroke="white"
-      stroke-width="1.25"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
@@ -95,12 +95,12 @@ export const InstagramIcon = () => (
         y2="-5.38344e-07"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#FBE18A" />
-        <stop offset="0.21" stop-color="#FCBB45" />
-        <stop offset="0.38" stop-color="#F75274" />
-        <stop offset="0.52" stop-color="#D53692" />
-        <stop offset="0.74" stop-color="#8F39CE" />
-        <stop offset="1" stop-color="#5B4FE9" />
+        <stop stopColor="#FBE18A" />
+        <stop offset="0.21" stopColor="#FCBB45" />
+        <stop offset="0.38" stopColor="#F75274" />
+        <stop offset="0.52" stopColor="#D53692" />
+        <stop offset="0.74" stopColor="#8F39CE" />
+        <stop offset="1" stopColor="#5B4FE9" />
       </linearGradient>
     </defs>
   </svg>
@@ -174,13 +174,7 @@ export const DotsVerticalIcon = () => (
 );
 
 export const HomeIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
     <path
       d="M9 22V12H15V22M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
       stroke="currentColor"
@@ -296,7 +290,7 @@ export const BellIcon = () => (
 );
 
 export const ChevronDownIcon = ({
-  color = "#6B6C76",
+  color = '#6B6C76',
   className,
 }: {
   color?: string;
@@ -381,7 +375,7 @@ export const CheckIcon = () => (
   </svg>
 );
 
-export const CameraIcon = ({ size = 24, color = "#6B6C76" }) => (
+export const CameraIcon = ({ size = 24, color = '#6B6C76' }) => (
   <svg
     width={size}
     height={size}
@@ -406,7 +400,7 @@ export const CameraIcon = ({ size = 24, color = "#6B6C76" }) => (
   </svg>
 );
 
-export const ArrowLeftIcon = ({ color = "#0C0C0C" }) => (
+export const ArrowLeftIcon = ({ color = '#0C0C0C' }) => (
   <svg
     width="20"
     height="20"
@@ -424,7 +418,7 @@ export const ArrowLeftIcon = ({ color = "#0C0C0C" }) => (
   </svg>
 );
 
-export const CloseIcon = ({ color = "#0C0C0C" }) => (
+export const CloseIcon = ({ color = '#0C0C0C' }) => (
   <svg
     width="20"
     height="20"

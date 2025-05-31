@@ -16,13 +16,10 @@ import {
   ResetPasswordRequestRequest,
   ResetPasswordVerifyRequest,
   ResetPasswordVerifyResponse,
+  GenericSuccessResponse,
 } from "@/types";
 
 // Define a generic success response type for endpoints that don't return specific data
-interface GenericSuccessResponse {
-  message?: string;
-  success?: boolean;
-}
 
 // Login
 export const useLogin = (): UseMutationResult<
@@ -161,15 +158,11 @@ export const useResetPasswordRequestInternal = (): UseMutationResult<
 
 // Reset Password Verify (Web)
 export const useResetPasswordVerifyWeb = (): UseMutationResult<
-  ResetPasswordVerifyResponse,
+  GenericSuccessResponse,
   AxiosError,
   ResetPasswordVerifyRequest
 > =>
-  useMutation<
-    ResetPasswordVerifyResponse,
-    AxiosError,
-    ResetPasswordVerifyRequest
-  >({
+  useMutation<GenericSuccessResponse, AxiosError, ResetPasswordVerifyRequest>({
     mutationFn: (data: ResetPasswordVerifyRequest) =>
       axiosInstance
         .post("/web/auth/reset-password-verify", data)

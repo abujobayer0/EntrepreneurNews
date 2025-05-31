@@ -1,11 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
+import { useLogin } from "@/hooks/auth.hooks";
+import type { LoginRequest, LoginResponse } from "@/types";
 import SocialLogin from "./SocialLogin";
 import { useScreenSize } from "@/utils/screenSize";
 import BrandLogo from "@/components/ui/BrandLogo";
+import { toast } from "sonner";
+import { AxiosError } from "axios";
+import { setTokens } from "@/utils/tokenManager";
+import { useRouter } from "next/navigation";
+import InputField from "@/components/ui/form/InputField";
 
 export default function LoginForm() {
+  const router = useRouter();
   const { isSmallScreen, isMediumScreen } = useScreenSize();
   const isLargeScreen = !isSmallScreen && !isMediumScreen;
 
@@ -14,6 +22,18 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+
+  // redirect search params
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : null;
+  const redirect = searchParams?.get("redirect") ?? undefined;
+
+  // Login mutation
+  const loginMutation = useLogin();
 
   // Validation functions
   const validateEmail = (email: string) => {
@@ -29,8 +49,8 @@ export default function LoginForm() {
   const validatePassword = (password: string) => {
     if (!password) {
       return "Password is required";
-    } else if (password.length < 8) {
-      return "Password must be at least 8 characters long";
+    } else if (password.length < 6) {
+      return "Password must be at least 6 characters long";
     }
     return "";
   };
@@ -54,81 +74,144 @@ export default function LoginForm() {
     setPasswordError(passwordValidationError);
 
     if (!emailValidationError && !passwordValidationError) {
-      console.log("Login Details:", { email, password });
+      setIsLoading(true);
+
+      const loginData: LoginRequest = {
+        identifier: email,
+        password,
+        remember: rememberMe,
+        rememberDays: rememberMe ? 7 : 1,
+      };
+
+      loginMutation.mutate(loginData, {
+        onSuccess: (response: LoginResponse) => {
+          setTokens(response.data);
+          toast.success(response.message || "Login successful!");
+
+          const userRoles = response.data.user.roles;
+
+          if (redirect && typeof redirect === "string") {
+            router.push(redirect);
+          } else if (
+            userRoles.includes("Super Admin") ||
+            userRoles.includes("Internal")
+          ) {
+            router.push("/authors");
+          } else {
+            router.push("/");
+          }
+        },
+        onError: (error) => {
+          const errorMessage =
+            (error as AxiosError<{ message?: string }>).response?.data
+              ?.message || "An unexpected error occurred. Please try again.";
+
+          toast.error(errorMessage);
+
+          if (errorMessage.toLowerCase().includes("email")) {
+            setEmailError(errorMessage);
+          } else if (errorMessage.toLowerCase().includes("password")) {
+            setPasswordError(errorMessage);
+          }
+        },
+        onSettled: () => {
+          setIsLoading(false);
+        },
+      });
     }
   };
 
   return (
     <div className="w-full max-w-md mx-auto px-4 py-6 flex flex-col justify-center items-center md:h-screen">
       {/* Logo */}
-      <div className="md:ml-10">
+      <div className="md:ml-10 mb-6">
         <BrandLogo />
       </div>
 
       {/* Title and Subtitle */}
-      <h1 className="text-[24px] lg:text-[30px] leading-[32px] lg:leading-[38px] font-bold text-[#101828] mt-6">
+      <h1 className="text-[24px] lg:text-[30px] leading-[32px] lg:leading-[38px] font-bold text-[#101828] mb-2">
         Log in to your account
       </h1>
-      <p className="text-[16px] leading-[24px] text-[#667085] mt-2">
+      <p className="text-[16px] leading-[24px] text-[#667085] mb-6">
         Welcome back! Please enter your details.
       </p>
 
       {/* Email Input */}
-      <input
-        className={`w-full h-12 border rounded-lg px-4 text-[16px] focus:outline-none text-[#101828] mt-6 ${
-          emailError ? "border-[#dd4545]" : "border-[#D0D5DD]"
-        }`}
-        type="email"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(e) => {
-          setEmail(e.target.value);
-          setEmailError(""); // Clear error on input change
-        }}
-      />
-      {emailError && (
-        <p className="text-[#dd4545] text-[12px] mt-1 text-left w-full">
-          {emailError}
-        </p>
-      )}
+      <div className="w-full">
+        <InputField
+          type="email"
+          className="py-3"
+          placeholder="Enter your email"
+          value={email}
+          onChangeText={(text) => {
+            setEmail(text);
+            setEmailError("");
+          }}
+          error={emailError}
+        />
+      </div>
 
       {/* Password Input (Visible on small/medium devices or after clicking Continue on large devices) */}
       {(isSmallScreen || isMediumScreen || showPassword) && (
-        <>
-          <input
-            className={`w-full h-12 border rounded-lg px-4 text-[16px] focus:outline-none text-[#101828] mt-4 ${
-              passwordError ? "border-[#dd4545]" : "border-[#D0D5DD]"
-            }`}
-            type="password"
+        <div className="w-full mt-4">
+          <InputField
+            type={showPassword ? "text" : "password"}
+            className="py-3"
             placeholder="Enter your password"
             value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setPasswordError(""); // Clear error on input change
+            onChangeText={(text) => {
+              setPassword(text);
+              setPasswordError("");
             }}
+            error={passwordError}
           />
-          {passwordError && (
-            <p className="text-[#dd4545] text-[12px] mt-1 text-left w-full">
-              {passwordError}
-            </p>
-          )}
-        </>
+
+          {/* Remember Me Checkbox */}
+          <div className="flex items-center justify-between mt-2">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="rememberMe"
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
+                className="mr-2 rounded text-[#003087] focus:ring-[#003087]"
+              />
+              <label
+                htmlFor="rememberMe"
+                className="text-[14px] text-[#667085]"
+              >
+                Remember me
+              </label>
+            </div>
+            <a
+              href="/auth/forgot-password"
+              className="text-[14px] text-[#003087] hover:underline"
+            >
+              Forgot password?
+            </a>
+          </div>
+        </div>
       )}
 
       {/* Button: Continue with Email (large devices) or Login (small/medium devices or after password entry) */}
       {isLargeScreen && !showPassword ? (
         <button
-          className="w-full h-12 bg-[#003087] rounded-lg flex items-center justify-center mt-4 text-white text-[16px] font-medium"
+          className="w-full py-3 bg-[#003087] rounded-lg flex items-center justify-center mt-6 text-white text-[16px] font-medium hover:bg-[#00215E] transition-colors duration-300"
           onClick={handleContinueWithEmail}
         >
           Continue with email
         </button>
       ) : (
         <button
-          className="w-full h-12 bg-[#003087] rounded-lg flex items-center justify-center mt-4 text-white text-[16px] font-medium cursor-pointer"
+          className={`w-full py-3 rounded-lg flex items-center justify-center mt-6 text-white text-[16px] font-medium transition-colors duration-300 ${
+            isLoading
+              ? "bg-[#6CA6CD] cursor-not-allowed"
+              : "bg-[#003087] hover:bg-[#00215E]"
+          }`}
           onClick={handleLogin}
+          disabled={isLoading}
         >
-          Login
+          {isLoading ? "Logging in..." : "Login"}
         </button>
       )}
 

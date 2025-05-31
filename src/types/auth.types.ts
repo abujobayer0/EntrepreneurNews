@@ -1,5 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Auth API Types
 
+export interface GenericSuccessResponse {
+  message?: string;
+  success?: boolean;
+  data?: any;
+}
 export interface LoginRequest {
   identifier: string;
   password: string;
@@ -8,9 +14,21 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-  user: unknown; // Replace with actual user type if available
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    accessToken: string;
+    refreshToken: string;
+    permissionToken: string;
+    user: {
+      id: string;
+      email: string;
+      fullName: string;
+      phoneNumber: string | null;
+      roles: string[];
+    };
+  };
 }
 
 export interface RegisterRequest {

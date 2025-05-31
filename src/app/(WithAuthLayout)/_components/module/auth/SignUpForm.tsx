@@ -1,9 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState } from "react";
 import BrandLogo from "@/components/ui/BrandLogo";
 import SocialLogin from "./SocialLogin";
 import { useScreenSize } from "@/utils/screenSize";
+import { useRegister } from "@/hooks/auth.hooks";
+import { toast } from "sonner";
+import OtpModal from "./OtpModal";
+import { AxiosError } from "axios";
+import { RegisterRequest } from "@/types";
+import InputField from "@/components/ui/form/InputField";
 
 export default function SignUpForm() {
   const { isSmallScreen, isMediumScreen } = useScreenSize();
@@ -11,9 +18,16 @@ export default function SignUpForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [otpModalData, setOtpModalData] = useState<{
+    identifier: string;
+    hash: string;
+  } | null>(null);
+
+  const { mutate: register, isPending: isRegistering } = useRegister();
 
   // Validation functions
   const validateEmail = (email: string) => {
@@ -29,8 +43,17 @@ export default function SignUpForm() {
   const validatePassword = (password: string) => {
     if (!password) {
       return "Password is required";
-    } else if (password.length < 8) {
-      return "Password must be at least 8 characters long";
+    } else if (password.length < 6) {
+      return "Password must be at least 6 characters long";
+    }
+    return "";
+  };
+
+  const validateFullName = (name: string) => {
+    if (!name) {
+      return "Full name is required";
+    } else if (name.length < 2) {
+      return "Full name must be at least 2 characters long";
     }
     return "";
   };
@@ -49,12 +72,43 @@ export default function SignUpForm() {
   const handleSignUp = () => {
     const emailValidationError = validateEmail(email);
     const passwordValidationError = validatePassword(password);
+    const fullNameValidationError = validateFullName(fullName);
 
     setEmailError(emailValidationError);
     setPasswordError(passwordValidationError);
 
-    if (!emailValidationError && !passwordValidationError) {
-      console.log("Sign Up Details:", { email, password });
+    if (
+      !emailValidationError &&
+      !passwordValidationError &&
+      !fullNameValidationError
+    ) {
+      const registerData: RegisterRequest = {
+        identifier: email,
+        password,
+        fullName,
+      };
+
+      register(registerData, {
+        onSuccess: (response: any) => {
+          // Use the OTP data from the registration response
+          const otpData = response.data;
+
+          // Open OTP modal with received hash
+          setOtpModalData({
+            identifier: otpData.identifier,
+            hash: otpData.hash,
+          });
+
+          // Show success toast with OTP message
+          toast.success(otpData.message || "User Registered Successfully");
+        },
+        onError: (error) => {
+          toast.error(
+            (error as AxiosError<{ message?: string }>).response?.data
+              ?.message || "Registration failed"
+          );
+        },
+      });
     }
   };
 
@@ -73,64 +127,68 @@ export default function SignUpForm() {
         Create your account to get started.
       </p>
 
-      {/* Email Input */}
+      {/* Full Name Input */}
       <div className="w-full mt-6">
-        <input
-          className={`w-full h-12 border rounded-lg px-4 text-[16px] focus:outline-none text-[#101828] ${
-            emailError ? "border-[#FF0000]" : "border-[#D0D5DD]"
-          }`}
+        <InputField
+          type="text"
+          className="py-3"
+          placeholder="Enter your full name"
+          value={fullName}
+          onChangeText={(text) => {
+            setFullName(text);
+            // Clear any previous errors
+          }}
+          error={emailError}
+        />
+      </div>
+
+      {/* Email Input */}
+      <div className="w-full mt-4">
+        <InputField
           type="email"
+          className="py-3"
           placeholder="Enter your email"
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            setEmailError(""); // Clear error on input change
+          onChangeText={(text) => {
+            setEmail(text);
+            setEmailError("");
           }}
+          error={emailError}
         />
-        {emailError && (
-          <p className="text-[#FF0000] text-[12px] mt-1 text-left w-full">
-            {emailError}
-          </p>
-        )}
       </div>
 
       {/* Password Input (Visible on small/medium devices or after clicking Continue on large devices) */}
       {(isSmallScreen || isMediumScreen || showPassword) && (
         <div className="w-full mt-4">
-          <input
-            className={`w-full h-12 border rounded-lg px-4 text-[16px] focus:outline-none text-[#101828] ${
-              passwordError ? "border-[#FF0000]" : "border-[#D0D5DD]"
-            }`}
+          <InputField
             type="password"
+            className="py-3"
             placeholder="Enter your password"
             value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setPasswordError(""); // Clear error on input change
+            onChangeText={(text) => {
+              setPassword(text);
+              setPasswordError("");
             }}
+            error={passwordError}
           />
-          {passwordError && (
-            <p className="text-[#FF0000] text-[12px] mt-1 text-left w-full">
-              {passwordError}
-            </p>
-          )}
         </div>
       )}
 
       {/* Button: Continue with Email (large devices) or Sign Up (small/medium devices or after password entry) */}
       {isLargeScreen && !showPassword ? (
         <button
-          className="w-full h-12 bg-[#003087] rounded-lg flex items-center justify-center mt-4 text-white text-[16px] font-medium"
+          className="w-full py-3 bg-[#003087] rounded-lg flex items-center justify-center mt-4 text-white text-[16px] font-medium cursor-pointer"
           onClick={handleContinueWithEmail}
         >
           Continue with email
         </button>
       ) : (
         <button
-          className="w-full h-12 bg-[#003087] rounded-lg flex items-center justify-center mt-4 text-white text-[16px] font-medium cursor-pointer"
+          className="w-full py-3 bg-[#003087] rounded-lg flex items-center justify-center mt-4 text-white text-[16px] font-medium cursor-pointer"
           onClick={handleSignUp}
+          disabled={isRegistering}
         >
-          Sign up
+          {isRegistering ? "Registering..." : "Sign up"}
         </button>
       )}
 
@@ -147,6 +205,15 @@ export default function SignUpForm() {
         title2="Log in"
         href="/auth/login"
       />
+
+      {/* OTP Modal */}
+      {otpModalData && (
+        <OtpModal
+          identifier={otpModalData.identifier}
+          hash={otpModalData.hash}
+          onClose={() => setOtpModalData(null)}
+        />
+      )}
     </div>
   );
 }

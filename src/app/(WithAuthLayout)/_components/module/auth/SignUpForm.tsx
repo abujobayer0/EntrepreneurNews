@@ -21,6 +21,7 @@ export default function SignUpForm() {
   const [fullName, setFullName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const [fullNameError, setFullNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [otpModalData, setOtpModalData] = useState<{
     identifier: string;
@@ -76,6 +77,7 @@ export default function SignUpForm() {
 
     setEmailError(emailValidationError);
     setPasswordError(passwordValidationError);
+    setFullNameError(fullNameValidationError);
 
     if (
       !emailValidationError &&
@@ -92,6 +94,8 @@ export default function SignUpForm() {
         onSuccess: (response: any) => {
           // Use the OTP data from the registration response
           const otpData = response.data;
+
+          console.log("otpData=>", otpData);
 
           // Open OTP modal with received hash
           setOtpModalData({
@@ -136,9 +140,9 @@ export default function SignUpForm() {
           value={fullName}
           onChangeText={(text) => {
             setFullName(text);
-            // Clear any previous errors
+            setFullNameError("");
           }}
-          error={emailError}
+          error={fullNameError}
         />
       </div>
 

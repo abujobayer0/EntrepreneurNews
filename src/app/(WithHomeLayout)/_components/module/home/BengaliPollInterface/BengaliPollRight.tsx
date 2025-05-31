@@ -1,5 +1,5 @@
 import React from "react";
-import Title from "@/app/(WithCommonLayout)/_components/ui/Title";
+import Title from "@/app/(WithHomeLayout)/_components/ui/Title";
 import { theme } from "@/constants/theme";
 
 export default function BengaliPollRight() {

@@ -1,6 +1,6 @@
 import React from "react";
-import Title from "@/app/(WithCommonLayout)/_components/ui/Title";
-import { BreakingNewsCard } from "@/app/(WithCommonLayout)/_components/ui/cards/BreakingNewsCard";
+import Title from "@/app/(WithHomeLayout)/_components/ui/Title";
+import { BreakingNewsCard } from "@/app/(WithHomeLayout)/_components/ui/cards/BreakingNewsCard";
 
 const NationalBuisnessFinance = () => {
   return (

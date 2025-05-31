@@ -1,5 +1,5 @@
-import Title from "@/app/(WithCommonLayout)/_components/ui/Title";
-import { NewsCard } from "@/app/(WithCommonLayout)/_components/ui/cards/NewsCard";
+import Title from "@/app/(WithHomeLayout)/_components/ui/Title";
+import { NewsCard } from "@/app/(WithHomeLayout)/_components/ui/cards/NewsCard";
 import React from "react";
 import ScreenContainer from "@/components/ui/wrapper/ScreenContainer";
 import SeeMoreButton from "../../ui/button/SeeMore";

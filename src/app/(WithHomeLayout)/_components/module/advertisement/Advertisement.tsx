@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { theme } from "@/constants/theme";
-import Title from "@/app/(WithCommonLayout)/_components/ui/Title";
+import Title from "@/app/(WithHomeLayout)/_components/ui/Title";
 
 const Advertisement = () => {
   const [html2pdf, setHtml2pdf] = useState<

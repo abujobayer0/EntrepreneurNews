@@ -1,6 +1,6 @@
 import React from "react";
-import { BreakingNewsCard } from "@/app/(WithCommonLayout)/_components/ui/cards/BreakingNewsCard";
-import Title from "@/app/(WithCommonLayout)/_components/ui/Title";
+import { BreakingNewsCard } from "@/app/(WithHomeLayout)/_components/ui/cards/BreakingNewsCard";
+import Title from "@/app/(WithHomeLayout)/_components/ui/Title";
 import { highlights } from "./data";
 import { THighlights } from "@/types";
 import ScreenContainer from "@/components/ui/wrapper/ScreenContainer";

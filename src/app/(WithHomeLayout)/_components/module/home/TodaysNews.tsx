@@ -1,7 +1,7 @@
-import Title from "@/app/(WithCommonLayout)/_components/ui/Title";
-import { NewsCard } from "@/app/(WithCommonLayout)/_components/ui/cards/NewsCard";
-import { MainNewsCard } from "@/app/(WithCommonLayout)/_components/ui/cards/MainNewsCard";
-import { BreakingNewsCard } from "@/app/(WithCommonLayout)/_components/ui/cards/BreakingNewsCard";
+import Title from "@/app/(WithHomeLayout)/_components/ui/Title";
+import { NewsCard } from "@/app/(WithHomeLayout)/_components/ui/cards/NewsCard";
+import { MainNewsCard } from "@/app/(WithHomeLayout)/_components/ui/cards/MainNewsCard";
+import { BreakingNewsCard } from "@/app/(WithHomeLayout)/_components/ui/cards/BreakingNewsCard";
 import React from "react";
 import SeeMoreButton from "../../ui/button/SeeMore";
 import ScreenContainer from "@/components/ui/wrapper/ScreenContainer";

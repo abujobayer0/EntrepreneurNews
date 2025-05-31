@@ -6,7 +6,8 @@ import { useOtpVerifyWeb, useOtpSendWeb } from "@/hooks/auth.hooks";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
-import { OtpSendRequest, OtpVerifyRequest } from "@/types";
+import { OtpSendRequest, OtpVerifyRequest, OtpVerifyResponse } from "@/types";
+import { setTokens } from "@/utils/tokenManager";
 
 interface OtpModalProps {
   identifier: string;
@@ -19,8 +20,10 @@ export default function OtpModal({ identifier, onClose, hash }: OtpModalProps) {
   const [otpError, setOtpError] = useState("");
   const router = useRouter();
 
-  const { mutate: verifyOtp, isPending: isVerifying } = useOtpVerifyWeb();
+  const { mutate: verifyOtp, isPending: isVerifying, data } = useOtpVerifyWeb();
   const { mutate: resendOtp, isPending: isResending } = useOtpSendWeb();
+
+  console.log("register data=>", data);
 
   const validateOtp = (otpValue: string) => {
     if (!otpValue) {
@@ -43,8 +46,21 @@ export default function OtpModal({ identifier, onClose, hash }: OtpModalProps) {
       };
 
       verifyOtp(otpVerifyData, {
-        onSuccess: () => {
-          toast.success("OTP Verified Successfully");
+        onSuccess: (response: OtpVerifyResponse) => {
+          console.log("response==>", response);
+          if (response.data) {
+            const { user, accessToken, permissionToken, refreshToken } =
+              response.data;
+            if (user) {
+              setTokens({
+                accessToken,
+                permissionToken,
+                refreshToken,
+                user: user,
+              });
+              toast.success("OTP Verified Successfully");
+            }
+          }
           router.push("/");
           onClose();
         },

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Title from "@/app/(WithCommonLayout)/_components/ui/Title";
+import Title from "@/app/(WithHomeLayout)/_components/ui/Title";
 import VictoryPie from "./VictoryPie";
 import { theme } from "@/constants/theme";
 

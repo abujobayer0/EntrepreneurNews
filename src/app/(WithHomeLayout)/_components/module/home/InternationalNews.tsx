@@ -1,4 +1,4 @@
-import Title from "@/app/(WithCommonLayout)/_components/ui/Title";
+import Title from "@/app/(WithHomeLayout)/_components/ui/Title";
 import React from "react";
 import Image from "next/image";
 import { Card } from "../../ui/cards/SecondaryNewsCard";

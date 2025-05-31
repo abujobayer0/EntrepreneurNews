@@ -31,6 +31,29 @@ export interface LoginResponse {
   };
 }
 
+export interface TokenData {
+  accessToken: string;
+  refreshToken: string;
+  permissionToken: string;
+}
+
+export interface User {
+  id: string;
+  email: string | null;
+  fullName: string | null;
+  phoneNumber: string | null;
+  roles: string[];
+}
+
+export interface LoginResponse {
+  statusCode: number;
+  message: string;
+  accessToken: string;
+  refreshToken: string;
+  permissionToken: string;
+  user: User;
+}
+
 export interface RegisterRequest {
   identifier: string;
   fullName: string;
@@ -38,9 +61,9 @@ export interface RegisterRequest {
 }
 
 export interface RegisterResponse {
-  // Define fields as per API response
   user: unknown; // Replace with actual user type if available
   message?: string;
+  data?: any;
 }
 
 export interface ChangePasswordRequest {
@@ -64,8 +87,15 @@ export interface OtpVerifyRequest {
   otp: number;
 }
 
+export interface OtpVerifyData extends TokenData {
+  user: User;
+}
+
 export interface OtpVerifyResponse {
-  message?: string;
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: OtpVerifyData;
 }
 
 export interface RefreshTokenRequest {

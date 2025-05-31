@@ -18,7 +18,7 @@ import {
 } from "./data";
 import FormHeader from "../../../../../components/ui/form/FormHeader";
 import TextAreaField from "../../../../../components/ui/form/TextAreaField";
-import Title from "@/app/(WithCommonLayout)/_components/ui/Title";
+import Title from "@/app/(WithHomeLayout)/_components/ui/Title";
 
 // Define interfaces for form data and files
 interface FileData {

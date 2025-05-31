@@ -5,7 +5,8 @@ export function middleware(request: NextRequest) {
   // Get tokens from cookies
   const accessToken = request.cookies.get("accessToken")?.value;
   const refreshToken = request.cookies.get("refreshToken")?.value;
-  const userRoles = request.cookies.get("userRoles")?.value;
+  const userRoles = request.cookies.get("roles")?.value;
+  console.log("userRoles=>", userRoles);
 
   // Define route patterns
   const authRoutes = ["/auth/login", "/auth/sign-up", "/auth/forgot-password"];

@@ -2,10 +2,10 @@
 
 import React from "react";
 import Image from "next/image";
-import Header from "@/app/(WithCommonLayout)/_components/ui/Header";
-import { BreakingNewsCard } from "@/app/(WithCommonLayout)/_components/ui/cards/BreakingNewsCard";
+import Header from "@/app/(WithHomeLayout)/_components/ui/Header";
+import { BreakingNewsCard } from "@/app/(WithHomeLayout)/_components/ui/cards/BreakingNewsCard";
 import { newsItems } from "../../home/TodaysNews";
-import { NewsCard } from "@/app/(WithCommonLayout)/_components/ui/cards/NewsCard";
+import { NewsCard } from "@/app/(WithHomeLayout)/_components/ui/cards/NewsCard";
 import { useRouter } from "next/navigation";
 
 interface TNewsDetailsRightProps {

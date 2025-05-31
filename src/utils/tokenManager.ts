@@ -1,16 +1,11 @@
+import { User } from "@/types";
 import Cookies from "js-cookie";
 
 interface TokenData {
   accessToken: string;
   refreshToken: string;
   permissionToken: string;
-  user: {
-    id: string;
-    email: string;
-    fullName: string;
-    phoneNumber: string | null;
-    roles: string[];
-  };
+  user: User;
 }
 
 export const setTokens = (tokenData: TokenData) => {
@@ -30,6 +25,13 @@ export const setTokens = (tokenData: TokenData) => {
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
   });
+  if (tokenData?.user?.roles) {
+    Cookies.set("roles", JSON.stringify(tokenData?.user.roles), {
+      expires: 30,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+  }
 
   // Store user info in localStorage for client-side access
   localStorage.setItem("user", JSON.stringify(tokenData.user));
@@ -47,6 +49,7 @@ export const removeTokens = () => {
   Cookies.remove("accessToken");
   Cookies.remove("refreshToken");
   Cookies.remove("permissionToken");
+  Cookies.remove("roles");
   localStorage.removeItem("user");
 };
 

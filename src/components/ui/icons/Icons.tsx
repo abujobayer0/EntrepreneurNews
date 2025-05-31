@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export const FacebookIcon = () => (
   <svg
@@ -255,8 +255,8 @@ export const CogIcon = () => (
 
 export const LogoutIcon = () => (
   <svg
-    width="24"
-    height="24"
+    width="20"
+    height="20"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -290,7 +290,7 @@ export const BellIcon = () => (
 );
 
 export const ChevronDownIcon = ({
-  color = '#6B6C76',
+  color = "#6B6C76",
   className,
 }: {
   color?: string;
@@ -375,7 +375,7 @@ export const CheckIcon = () => (
   </svg>
 );
 
-export const CameraIcon = ({ size = 24, color = '#6B6C76' }) => (
+export const CameraIcon = ({ size = 24, color = "#6B6C76" }) => (
   <svg
     width={size}
     height={size}
@@ -400,7 +400,7 @@ export const CameraIcon = ({ size = 24, color = '#6B6C76' }) => (
   </svg>
 );
 
-export const ArrowLeftIcon = ({ color = '#0C0C0C' }) => (
+export const ArrowLeftIcon = ({ color = "#0C0C0C" }) => (
   <svg
     width="20"
     height="20"
@@ -418,7 +418,7 @@ export const ArrowLeftIcon = ({ color = '#0C0C0C' }) => (
   </svg>
 );
 
-export const CloseIcon = ({ color = '#0C0C0C' }) => (
+export const CloseIcon = ({ color = "#0C0C0C" }) => (
   <svg
     width="20"
     height="20"
